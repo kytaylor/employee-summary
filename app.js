@@ -33,3 +33,78 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+const managerQuestions = [
+    {
+        type: "input",
+        message: "Enter manager name:",
+        name: "name",
+    },
+    {
+        type: "input",
+        message: "Enter employee ID:",
+        name: "id",
+    },
+    {
+        type: "input",
+        message: "Enter manager email:",
+        name: "email",
+    },
+    {
+        type: "input",
+        message: "Enter manager's office number:",
+        name: "office",
+    },
+    {
+        type: "list",
+        message: "Would you like to add any team members?",
+        name: "team",
+        choices: ["yes", "no"]
+    }
+]
+
+const employeeQuestions = [
+    {
+        type: "input",
+        message: "Enter employee name:",
+        name: "name",
+    },
+    {
+        type: "input",
+        message: "Enter employee ID:",
+        name: "id",
+    },
+    {
+        type: "input",
+        message: "Enter employee email:",
+        name: "email",
+    },
+    {
+        type: "list",
+        message: "What is the employee's role?",
+        name: "role",
+        choices: ["engineer", "intern"]
+    },
+    {
+        when: input => {
+            return input.role == "engineer"
+        },
+        type: "input",
+        message: "Enter engineer's GitHub username:",
+        name: "github",
+    },
+    {
+        when: input => {
+            return input.role == "intern"
+        },
+        type: "input",
+        message: "Enter intern's school:",
+        name: "school",
+    },
+    {
+        type: "list",
+        message: "Would you like to add another team member?",
+        name: "add",
+        choices: ["Yes", "No"]
+    }
+]
