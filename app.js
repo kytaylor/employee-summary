@@ -34,6 +34,8 @@ const render = require("./lib/htmlRenderer");
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
 
+let employeeList = [];
+
 const employeeQuestions = [
     {
         type: "input",
@@ -58,7 +60,7 @@ const employeeQuestions = [
     },
     {
         when: input => {
-            return input.role == "engineer"
+            return input.role === "engineer"
         },
         type: "input",
         message: "Enter engineer's GitHub username:",
@@ -66,7 +68,7 @@ const employeeQuestions = [
     },
     {
         when: input => {
-            return input.role == "intern"
+            return input.role === "intern"
         },
         type: "input",
         message: "Enter intern's school:",
@@ -74,11 +76,11 @@ const employeeQuestions = [
     },
     {
         when: input => {
-            return input.role == "manager"
+            return input.role === "manager"
         },
         type: "input",
         message: "Enter manager's office number:",
-        name: "office",
+        name: "officeNumber",
     },
     {
         type: "list",
@@ -86,4 +88,25 @@ const employeeQuestions = [
         name: "add",
         choices: ["Yes", "No"]
     }
-]
+];
+
+async function init() {
+    const data = await inquirer.prompt(employeeQuestions);
+
+    if(data.role === "engineer") {
+        var newEmployee = new Engineer(data.name, data.id, data.email, data.github);
+    } else if(data.role === "intern") {
+        var newEmployee = new Intern(data.name, data.id, data.email, data.school);
+    } else if (data.role === "manager") {
+        var newEmployee = new Manager(data.name, data.id, data.email, data.officeNumber);
+    }
+    employeeList.push(newEmployee);
+
+    if(data.add === "Yes") {
+        init()
+    } else {
+        render()
+    }
+}
+
+init()
