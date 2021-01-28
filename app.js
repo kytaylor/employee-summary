@@ -34,35 +34,6 @@ const render = require("./lib/htmlRenderer");
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
 
-const managerQuestions = [
-    {
-        type: "input",
-        message: "Enter manager name:",
-        name: "name",
-    },
-    {
-        type: "input",
-        message: "Enter employee ID:",
-        name: "id",
-    },
-    {
-        type: "input",
-        message: "Enter manager email:",
-        name: "email",
-    },
-    {
-        type: "input",
-        message: "Enter manager's office number:",
-        name: "office",
-    },
-    {
-        type: "list",
-        message: "Would you like to add any team members?",
-        name: "team",
-        choices: ["yes", "no"]
-    }
-]
-
 const employeeQuestions = [
     {
         type: "input",
@@ -83,7 +54,7 @@ const employeeQuestions = [
         type: "list",
         message: "What is the employee's role?",
         name: "role",
-        choices: ["engineer", "intern"]
+        choices: ["engineer", "intern", "manager"]
     },
     {
         when: input => {
@@ -100,6 +71,14 @@ const employeeQuestions = [
         type: "input",
         message: "Enter intern's school:",
         name: "school",
+    },
+    {
+        when: input => {
+            return input.role == "manager"
+        },
+        type: "input",
+        message: "Enter manager's office number:",
+        name: "office",
     },
     {
         type: "list",
