@@ -56,11 +56,11 @@ const employeeQuestions = [
         type: "list",
         message: "What is the employee's role?",
         name: "role",
-        choices: ["engineer", "intern", "manager"]
+        choices: ["Engineer", "Intern", "Manager"]
     },
     {
         when: input => {
-            return input.role === "engineer"
+            return input.role === "Engineer"
         },
         type: "input",
         message: "Enter engineer's GitHub username:",
@@ -68,7 +68,7 @@ const employeeQuestions = [
     },
     {
         when: input => {
-            return input.role === "intern"
+            return input.role === "Intern"
         },
         type: "input",
         message: "Enter intern's school:",
@@ -76,7 +76,7 @@ const employeeQuestions = [
     },
     {
         when: input => {
-            return input.role === "manager"
+            return input.role === "Manager"
         },
         type: "input",
         message: "Enter manager's office number:",
@@ -93,11 +93,11 @@ const employeeQuestions = [
 async function init() {
     const data = await inquirer.prompt(employeeQuestions);
 
-    if(data.role === "engineer") {
+    if(data.role === "Engineer") {
         var newEmployee = new Engineer(data.name, data.id, data.email, data.github);
-    } else if(data.role === "intern") {
+    } else if(data.role === "Intern") {
         var newEmployee = new Intern(data.name, data.id, data.email, data.school);
-    } else if (data.role === "manager") {
+    } else if (data.role === "Manager") {
         var newEmployee = new Manager(data.name, data.id, data.email, data.officeNumber);
     }
     employeeList.push(newEmployee);
@@ -105,7 +105,7 @@ async function init() {
     if(data.add === "Yes") {
         init()
     } else {
-        render()
+        render(employeeList)
     }
 }
 
